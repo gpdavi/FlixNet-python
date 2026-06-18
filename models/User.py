@@ -12,5 +12,6 @@ class User:
 
     def getPassword(self):
         return self.__password
+     
     
     
