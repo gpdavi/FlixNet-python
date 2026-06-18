@@ -1,9 +1,6 @@
 import customtkinter as ctk
 
-from CreateAccountWindow import CreateAccountWindow
-
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+from .CreateAccountWindow import CreateAccountWindow
 
 class LoginWindow(ctk.CTk):
 
@@ -37,8 +34,3 @@ class LoginWindow(ctk.CTk):
     def openCreateAccount(self):
         self.withdraw()
         CreateAccountWindow(self)
-
-
-if __name__ == "__main__":
-    app = LoginWindow()
-    app.mainloop()

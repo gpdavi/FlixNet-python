@@ -11,7 +11,3 @@ class Application:
             return False
         return True
     
-    def confirmPassword(self,password,confirmation):
-        if password != confirmation:
-            return False
-        return True

@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from controllers.Application import Application
 
 class CreateAccountWindow(ctk.CTkToplevel):
 
@@ -46,9 +47,12 @@ class CreateAccountWindow(ctk.CTkToplevel):
 
     def equalPasswords(self):
         self.invalidPasswordMessage = ctk.CTkLabel(self, text="")
+        password = self.passwordEntry.get()
+        confirmPassword = self.confirmPasswordEntry.get()
 
-        if (self.passwordEntry == self.confirmPasswordEntry):
-            pass # davi funcao
+        if (password == confirmPassword) and (Application.PasswordVerify(password, confirmPassword)):
+            print("SENHA VÁLIDA")
+            pass # CADASTRAR O CUSTOMER
         else:
             self.invalidPasswordMessage = ctk.CTkLabel(self, text="Senha inválida")
             self.invalidPasswordMessage.pack(pady=10)
