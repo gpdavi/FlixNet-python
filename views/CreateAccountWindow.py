@@ -1,0 +1,54 @@
+import customtkinter as ctk
+
+class CreateAccountWindow(ctk.CTkToplevel):
+
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.title("Criação de conta")
+        self.geometry("800x650")
+
+        self.welcomeMessage = ctk.CTkLabel(self, text="Preencha o formulário abaixo", font=("PAPYRUS", 25))
+        self.welcomeMessage.pack(pady=10)
+
+        self.nameMessage = ctk.CTkLabel(self, text="Nome:", font=("PAPYRUS", 20))
+        self.nameMessage.pack(pady=10)
+
+        self.nameEntry = ctk.CTkEntry(self)
+        self.nameEntry.pack(pady=10)
+
+        self.usernameMessage = ctk.CTkLabel(self, text="Nome de usuário:", font=("PAPYRUS", 20))
+        self.usernameMessage.pack(pady=10)
+
+        self.usernameEntry = ctk.CTkEntry(self)
+        self.usernameEntry.pack(pady=10)
+
+        self.passwordMessage = ctk.CTkLabel(self, text="Senha:", font=("PAPYRUS", 20))
+        self.passwordMessage.pack(pady=10)
+
+        self.passwordEntry = ctk.CTkEntry(self, show="\u2022")
+        self.passwordEntry.pack(pady=10)
+
+        self.confirmPasswordMessage = ctk.CTkLabel(self, text="Confirme a senha:", font=("PAPYRUS", 20))
+        self.confirmPasswordMessage.pack(pady=10)
+
+        self.confirmPasswordEntry = ctk.CTkEntry(self, show="\u2022")
+        self.confirmPasswordEntry.pack(pady=10)
+
+        self.addressMessage = ctk.CTkLabel(self, text="Endereço:", font=("PAPYRUS", 20))
+        self.addressMessage.pack(pady=10)
+
+        self.addressEntry = ctk.CTkEntry(self)
+        self.addressEntry.pack(pady=10)
+
+        self.confirmButton = ctk.CTkButton(self, text="Confirmar", command=self.equalPasswords)
+        self.confirmButton.pack(pady=10)
+
+    def equalPasswords(self):
+        self.invalidPasswordMessage = ctk.CTkLabel(self, text="")
+
+        if (self.passwordEntry == self.confirmPasswordEntry):
+            pass # davi funcao
+        else:
+            self.invalidPasswordMessage = ctk.CTkLabel(self, text="Senha inválida")
+            self.invalidPasswordMessage.pack(pady=10)
