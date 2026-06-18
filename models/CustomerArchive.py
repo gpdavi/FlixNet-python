@@ -1,6 +1,15 @@
 import sqlite3
 class CustomerArchive:
 
+    def __init__(self):
+        self.__customers = []
+    
+    def addCustomer(self, customer):
+        self.__customers.append(customer)
+
+    def getCustomers(self):
+        return self.__customers
+    
     def connection(way_db: str = "custumer.db") -> sqlite3.Connection:
         #Cria e retorna uma conexão com o banco de dados.
         conn = sqlite3.connect(way_db)
@@ -19,7 +28,7 @@ class CustomerArchive:
                     password    TEXT    NOT NULL,
                     address     TEXT    NOT NULL
                 );
-                CREATE TABLE IF NOT EXISTS cart (
+                CREATE TABLE IF NOT EXISTS rented (
                     id      INTEGER PRIMARY KEY AUTOINCREMENT,
                     title    TEXT    NOT NULL,
                     year    INTEGER   NOT NULL,
