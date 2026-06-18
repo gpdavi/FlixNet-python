@@ -1,9 +1,10 @@
-class Movie():
-    def __init__(self, title, year, summary, runtime, rating):
+class Movie:
+    def __init__(self, title, year, summary, runtime, rating, price):
         self.__title = title
         self.__year = year
         self.__summary = summary
         self.__runtime = runtime
+        self.__price = price
         self.__rating = rating
 
     def getTitle(self):
@@ -20,3 +21,6 @@ class Movie():
     
     def getRating(self):
         return self.__rating
+    
+    def getPrice(self):
+        return self.__price
