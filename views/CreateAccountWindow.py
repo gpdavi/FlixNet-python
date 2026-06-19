@@ -1,10 +1,15 @@
 import customtkinter as ctk
 from controllers.Application import Application
+from models.CustomerArchive import CustomerArchive
+from CTkMessagebox import CTkMessagebox
+from models.Customer import Customer
 
 class CreateAccountWindow(ctk.CTkToplevel):
 
     def __init__(self, parent):
         super().__init__(parent)
+
+        self.customerArchive = CustomerArchive()
 
         self.title("Criação de conta")
         self.geometry("800x650")
@@ -51,8 +56,10 @@ class CreateAccountWindow(ctk.CTkToplevel):
         confirmPassword = self.confirmPasswordEntry.get()
 
         if (password == confirmPassword) and (Application.PasswordVerify(password, confirmPassword)):
-            print("SENHA VÁLIDA")
-            pass # CADASTRAR O CUSTOMER
+            self.customerArchive.add(Customer(self.nameEntry.get(), self.usernameEntry.get(), self.passwordEntry.get(), self.addressEntry.get()))   
+            CTkMessagebox(title="Sucesso", message="Usuário registrado com sucesso!")
+            self.master.deiconify()
+            self.destroy()
         else:
             self.invalidPasswordMessage = ctk.CTkLabel(self, text="Senha inválida")
             self.invalidPasswordMessage.pack(pady=10)

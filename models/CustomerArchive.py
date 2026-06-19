@@ -4,7 +4,7 @@ class CustomerArchive:
     def __init__(self):
         self.__customers = []
     
-    def addCustomer(self, customer):
+    def add(self, customer):
         self.__customers.append(customer)
 
     def getCustomers(self):
