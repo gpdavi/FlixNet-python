@@ -6,10 +6,9 @@ from models.Customer import Customer
 
 class CreateAccountWindow(ctk.CTkToplevel):
 
-    def __init__(self, parent):
+    def __init__(self, parent, customerArchive):
         super().__init__(parent)
-
-        self.customerArchive = CustomerArchive()
+        self.customerArchive = customerArchive
 
         self.title("Criação de conta")
         self.geometry("800x650")
@@ -57,7 +56,8 @@ class CreateAccountWindow(ctk.CTkToplevel):
 
         if (password == confirmPassword) and (Application.PasswordVerify(password, confirmPassword)):
             self.customerArchive.add(Customer(self.nameEntry.get(), self.usernameEntry.get(), self.passwordEntry.get(), self.addressEntry.get()))   
-            CTkMessagebox(title="Sucesso", message="Usuário registrado com sucesso!")
+            msg = CTkMessagebox(title="Sucesso", message="Usuário registrado com sucesso!")
+            msg.wait_window() 
             self.master.deiconify()
             self.destroy()
         else:
