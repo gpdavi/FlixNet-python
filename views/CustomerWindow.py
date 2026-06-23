@@ -14,7 +14,7 @@ class CustomerWindow(ctk.CTkToplevel):
     def __init__(self, parent, customer):
         super().__init__(parent)
 
-        self.welcomeMessage = ctk.CTkLabel(self, text=f"Seja bem-vindo, {customer.getName().capitalize()}.")
+        self.welcomeMessage = ctk.CTkLabel(self, text=f"Seja bem-vindo, {customer.getName().capitalize()}")
         self.welcomeMessage.pack(pady=10)
 
         self.scroll_frame = ctk.CTkScrollableFrame(
