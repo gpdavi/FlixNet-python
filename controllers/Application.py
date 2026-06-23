@@ -1,6 +1,7 @@
 import string
 from models.CustomerArchive import CustomerArchive
 from controllers.Hash import Hash
+from models.Customer import Customer
 
 class Application:
     def PasswordVerify(self,password):
@@ -23,5 +24,5 @@ class Application:
         ).fetchone()
 
         if row and Hash.check_password(password, row["password"]):
-            return row  # retorna os dados do cliente logado
+            return Customer(row["name"], row["username"], row["password"], row["address"])  # retorna os dados do cliente logado
         return None
