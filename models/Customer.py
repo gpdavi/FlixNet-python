@@ -1,4 +1,4 @@
-import User
+from models.User import User
 
 class Customer(User):
     def __init__(self, name, userName, password ,address):

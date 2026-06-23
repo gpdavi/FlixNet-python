@@ -1,4 +1,6 @@
 import string
+from models.CustomerArchive import CustomerArchive
+
 class Application:
     def PasswordVerify(self,password):
         if len(password)<8:
@@ -11,7 +13,8 @@ class Application:
             return False
         return True
     
-    def confirmPassword(self,password,confirmation):
-        if password != confirmation:
-            return False
-        return True
+    def validateLogin(customerArchive, username, password):
+        for customer in customerArchive.getCustomers():
+            if (username == customer.getUserName() and password == customer.getPassword()):
+                return customer
+        return None
