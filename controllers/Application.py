@@ -9,9 +9,7 @@ class Application:
             return False
         if not any(char in string.punctuation for char in password):
             return False
-        return True
-    
-    def confirmPassword(self,password,confirmation):
-        if password != confirmation:
+        if not any(char.islower() for char in password):
             return False
         return True
+    
