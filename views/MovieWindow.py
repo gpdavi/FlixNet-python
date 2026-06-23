@@ -30,6 +30,8 @@ class MovieWindow(ctk.CTkToplevel):
 
         movieFrame = ctk.CTkFrame(self, height=800, width=800)
 
+        returnButton = ctk.CTkButton(self, text="Voltar", command=self.returnToCatalog, compound="left")
+        returnButton.pack(anchor="w")
 
         movieNameLabel = ctk.CTkLabel(movieFrame, text=movieName, font=("Papyrus", 40, "bold"))
         movieNameLabel.pack(padx=45)
@@ -37,23 +39,26 @@ class MovieWindow(ctk.CTkToplevel):
         movieImage = ctk.CTkLabel(movieFrame, image=ctk_image, text="")
         movieImage.pack()
 
-        movieDescriptionLabel = ctk.CTkLabel(movieFrame, text=f"Descrição: {movieDescription}", font=("Papyrus", 20), wraplength=400)
+        movieDescriptionLabel = ctk.CTkLabel(movieFrame, text=f"{movieDescription}", font=("Papyrus", 20), wraplength=700)
         movieDescriptionLabel.pack()
 
         movieReleaseDateLabel = ctk.CTkLabel(movieFrame, text=f"Data de lançamento: {movieReleaseDate}")
-        movieReleaseDateLabel.pack(pady=10)
+        movieReleaseDateLabel.pack()
 
         movieRatingLabel = ctk.CTkLabel(movieFrame, text=f"Nota: {movieRating}")
-        movieRatingLabel.pack(pady=10)
+        movieRatingLabel.pack()
 
         moviePriceLabel = ctk.CTkLabel(movieFrame, text=f"Preço: {moviePrice}")
 
-        movieFrame.pack()
-        moviePriceLabel.pack(pady=10)
+        movieFrame.pack() 
+        moviePriceLabel.pack()
         
-        rentButton = ctk.CTkButton(self, text="Alugar", command=self.addToCart)
+        rentButton = ctk.CTkButton(movieFrame, text="Alugar", command=self.addToCart)
         
         rentButton.pack()
 
     def addToCart(self):
+        pass
+
+    def returnToCatalog(self):
         pass
