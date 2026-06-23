@@ -1,14 +1,15 @@
 import customtkinter as ctk
 from controllers.Application import Application
 from models.CustomerArchive import CustomerArchive
+from controllers.Hash import Hash
 from CTkMessagebox import CTkMessagebox
 from models.Customer import Customer
 
 class CreateAccountWindow(ctk.CTkToplevel):
 
-    def __init__(self, parent, customerArchive):
+    def __init__(self, parent, conn):
         super().__init__(parent)
-        self.customerArchive = customerArchive
+        self.conn = conn
 
         self.title("Criação de conta")
         self.geometry("800x650")
@@ -50,12 +51,19 @@ class CreateAccountWindow(ctk.CTkToplevel):
         self.confirmButton.pack(pady=10)
 
     def equalPasswords(self):
-        self.invalidPasswordMessage = ctk.CTkLabel(self, text="")
+        """self.invalidPasswordMessage = ctk.CTkLabel(self, text="")"""
         password = self.passwordEntry.get()
         confirmPassword = self.confirmPasswordEntry.get()
 
         if (password == confirmPassword) and (Application.PasswordVerify(password, confirmPassword)):
-            self.customerArchive.add(Customer(self.nameEntry.get(), self.usernameEntry.get(), self.passwordEntry.get(), self.addressEntry.get()))   
+            hashedPassword = Hash.hash_password(password)
+            CustomerArchive.insert_customer(
+                self.conn,
+                self.nameEntry.get(),
+                self.usernameEntry.get(),
+                hashedPassword,
+                self.addressEntry.get()
+            )
             msg = CTkMessagebox(title="Sucesso", message="Usuário registrado com sucesso!")
             msg.wait_window() 
             self.master.deiconify()
