@@ -1,4 +1,6 @@
 import string
+from models.CustomerArchive import CustomerArchive
+
 class Application:
     def PasswordVerify(self,password):
         if len(password)<8:
