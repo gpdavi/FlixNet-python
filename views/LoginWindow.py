@@ -41,7 +41,6 @@ class LoginWindow(ctk.CTk):
     def login(self):
         customer = Application.validateLogin(self.conn, self.entryUsername.get(), self.entryPassword.get())
         if (customer):
-            print("LOGOU")
             self.withdraw()
             CustomerWindow(self, customer)
         else:
