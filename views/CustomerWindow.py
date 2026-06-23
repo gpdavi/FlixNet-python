@@ -6,6 +6,8 @@ from models.Customer import Customer
 from PIL import Image
 import requests
 from io import BytesIO
+from functools import partial
+from views.MovieWindow import MovieWindow
 
 
 class CustomerWindow(ctk.CTkToplevel):
@@ -34,17 +36,26 @@ class CustomerWindow(ctk.CTkToplevel):
         data = response.json()
         movies = data["results"]  # list of movies
 
-        for movie in movies:
+        for i, movie in enumerate(movies):
             poster_url = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
             movie_name = movie["title"]
+
             response = requests.get(poster_url)
             img = Image.open(BytesIO(response.content))
             ctk_image = ctk.CTkImage(img, size=(150, 220))
-            label = ctk.CTkLabel(self.scroll_frame, image=ctk_image, text="", anchor="w")
+
+            frame = ctk.CTkFrame(self.scroll_frame)
+            frame.grid(row=i // 4, column=i % 4, padx=10, pady=10)
+
+            label = ctk.CTkLabel(frame, image=ctk_image, text="")
             label.pack()
-            
-            self.buttonMovieName = ctk.CTkButton(self.scroll_frame, text=f"{movie_name}")
-            self.buttonMovieName.pack(padx=5)
+
+            button = ctk.CTkButton(frame, text=movie_name, command=partial(self.openMovieWindow, movie))
+            button.pack(pady=5)
 
     def openCart(self):
         pass
+
+    def openMovieWindow(self, movie):
+        self.withdraw()
+        MovieWindow(self, movie)
