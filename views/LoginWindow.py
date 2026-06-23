@@ -6,9 +6,9 @@ from .CustomerWindow import CustomerWindow
 
 class LoginWindow(ctk.CTk):
 
-    def __init__(self, customerArchive):
+    def __init__(self, conn):
         super().__init__()
-        self.customerArchive = customerArchive
+        self.conn = conn
 
         self.title("FlixNet")
         self.geometry("600x500")
@@ -36,10 +36,10 @@ class LoginWindow(ctk.CTk):
 
     def openCreateAccount(self):
         self.withdraw()
-        CreateAccountWindow(self, self.customerArchive)
+        CreateAccountWindow(self, self.conn)
 
     def login(self):
-        customer = Application.validateLogin(self.customerArchive, self.entryUsername.get(), self.entryPassword.get())
+        customer = Application.validateLogin(self.conn, self.entryUsername.get(), self.entryPassword.get())
         if (customer):
             self.withdraw()
             CustomerWindow(self, customer)

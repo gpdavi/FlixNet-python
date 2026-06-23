@@ -1,5 +1,6 @@
 import string
 from models.CustomerArchive import CustomerArchive
+from controllers.Hash import Hash
 
 class Application:
     def PasswordVerify(self,password):
@@ -11,10 +12,16 @@ class Application:
             return False
         if not any(char in string.punctuation for char in password):
             return False
+        if not any(char.islower() for char in password):
+            return False
         return True
     
-    def validateLogin(customerArchive, username, password):
-        for customer in customerArchive.getCustomers():
-            if (username == customer.getUserName() and password == customer.getPassword()):
-                return customer
+    @staticmethod
+    def validateLogin(conn, username: str, password: str):
+        row = conn.execute(
+            "SELECT * FROM customer WHERE username = ?", (username,)
+        ).fetchone()
+
+        if row and Hash.check_password(password, row["password"]):
+            return row  # retorna os dados do cliente logado
         return None
