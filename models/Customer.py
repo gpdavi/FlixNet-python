@@ -16,6 +16,9 @@ class Customer(User):
     def increasePayment(self):
         self.__payout += 10
 
+    def clearCart(self):
+        self.__cart.clear()
+
     def getPayout(self):
         return self.__payout
     

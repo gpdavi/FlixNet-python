@@ -1,0 +1,38 @@
+import customtkinter as ctk
+from controllers.Application import Application
+from models.CustomerArchive import CustomerArchive
+from CTkMessagebox import CTkMessagebox
+from models.Customer import Customer
+from PIL import Image
+import requests
+from io import BytesIO
+from functools import partial
+from views.MovieWindow import MovieWindow
+
+class CartWindow(ctk.CTkToplevel):
+    def __init__(self, parent, customer):
+        
+        super().__init__(parent)
+        self.customer = customer
+        self.parent = parent
+        self.state("zoomed")
+        cart = self.customer.getCart()
+
+        self.title("Carrinho de compras")
+        ctk.CTkLabel(self, text=f"Seja bem-vindo ao carrinho de compras, {self.customer.getName().capitalize()}",  font=("Arial", 22)).pack(pady=10)
+        
+        cartFrame = ctk.CTkFrame(self, height=800, width=800)
+
+        for movieName in cart:
+            ctk.CTkLabel(cartFrame, text=f"{movieName}................ R$ 10,00").pack(pady=3)
+        
+        ctk.CTkLabel(cartFrame, text=f"Total a pagar: R$ {self.customer.getPayout()}", font=("Arial", 22)).pack(pady=3)
+        ctk.CTkButton(cartFrame, text="Finalizar compra", font=("Arial", 22), command=self.finishPurchase).pack(pady=3)
+
+        cartFrame.pack()
+
+    def finishPurchase(self):
+        CTkMessagebox(title="Compra finalizada", message=f"Compra finalizada! \nTotal a pagar: R$ {self.customer.getPayout():.2f}")
+        self.customer.clearCart()
+        self.parent.deiconify()
+        self.destroy()
