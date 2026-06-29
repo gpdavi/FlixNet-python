@@ -8,12 +8,14 @@ import requests
 from io import BytesIO
 from functools import partial
 from views.MovieWindow import MovieWindow
+from views.CartWindow import CartWindow
 
 
 class CustomerWindow(ctk.CTkToplevel):
     def __init__(self, parent, customer):
         super().__init__(parent)
         self.customer = customer
+        cartSize = len(self.customer.getCart())
 
         self.welcomeMessage = ctk.CTkLabel(self, text=f"Seja bem-vindo, {customer.getName().capitalize()}")
         self.welcomeMessage.pack(pady=10)
@@ -28,7 +30,7 @@ class CustomerWindow(ctk.CTkToplevel):
         self.title("Área do cliente")
         self.geometry("800x600")
 
-        self.cartButton = ctk.CTkButton(self, text="Carrinho", command=self.openCart)
+        self.cartButton = ctk.CTkButton(self, text=f"Carrinho ({cartSize})", command=self.openCart)
         self.cartButton.pack(pady=10)
         self.cartButton.place(relx=1.0, rely=0.03, anchor="ne")
 
@@ -55,8 +57,14 @@ class CustomerWindow(ctk.CTkToplevel):
             button.pack(pady=5)
 
     def openCart(self):
-        pass
+        self.withdraw()
+        CartWindow(self, self.customer)
 
     def openMovieWindow(self, movie):
         self.withdraw()
         MovieWindow(self, movie, self.customer)
+
+    def deiconify(self):
+        super().deiconify()
+        cartSize = len(self.customer.getCart())
+        self.cartButton.configure(text=f"Carrinho ({cartSize})")
