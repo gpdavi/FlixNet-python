@@ -13,6 +13,7 @@ from views.MovieWindow import MovieWindow
 class CustomerWindow(ctk.CTkToplevel):
     def __init__(self, parent, customer):
         super().__init__(parent)
+        self.customer = customer
 
         self.welcomeMessage = ctk.CTkLabel(self, text=f"Seja bem-vindo, {customer.getName().capitalize()}")
         self.welcomeMessage.pack(pady=10)
@@ -58,4 +59,4 @@ class CustomerWindow(ctk.CTkToplevel):
 
     def openMovieWindow(self, movie):
         self.withdraw()
-        MovieWindow(self, movie)
+        MovieWindow(self, movie, self.customer)
