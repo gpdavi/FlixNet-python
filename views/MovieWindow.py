@@ -9,10 +9,13 @@ from io import BytesIO
 from functools import partial
 
 class MovieWindow(ctk.CTkToplevel):
-    def __init__(self, parent, movie):
+    def __init__(self, parent, movie, customer):
         super().__init__(parent)
+        self.parent = parent
 
         self.state("zoomed")
+        self.customer = customer
+        self.customerCart = customer.getCart()
 
         posterUrl = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
         movieName = movie["title"]
@@ -53,12 +56,16 @@ class MovieWindow(ctk.CTkToplevel):
         movieFrame.pack() 
         moviePriceLabel.pack()
         
-        rentButton = ctk.CTkButton(movieFrame, text="Alugar", command=self.addToCart)
+        rentButton = ctk.CTkButton(movieFrame, text="Alugar", command=partial(self.addToCart, movieName))
         
         rentButton.pack()
 
-    def addToCart(self):
-        pass
+    def addToCart(self, movieName):
+        self.customer.cartAdd(movieName)
+        self.customer.increasePayment()
+        CTkMessagebox(title="Carrinho", message=f"{movieName} adicionado ao carrinho!")
+        self.returnToCatalog()
 
     def returnToCatalog(self):
-        pass
+        self.parent.deiconify()
+        self.destroy()

@@ -10,6 +10,12 @@ class Customer(User):
     def getCart(self):
         return self.__cart
     
+    def cartAdd(self, movieName):
+        self.__cart.append(movieName)
+
+    def increasePayment(self):
+        self.__payout += 10
+
     def getPayout(self):
         return self.__payout
     
