@@ -1,23 +1,29 @@
+import os
 import sqlite3
-class CustomerArchive:
 
+class CustomerArchive:
     def __init__(self):
         self.__customers = []
-    
+
     def add(self, customer):
         self.__customers.append(customer)
 
     def getCustomers(self):
         return self.__customers
-    
+
     @staticmethod
-    def connection(way_db: str = "customer.db") -> sqlite3.Connection:
-        #Cria e retorna uma conexão com o banco de dados.
+    def connection(way_db: str = None) -> sqlite3.Connection:
+        if way_db is None:
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            DB_DIR = os.path.join(BASE_DIR, "data")
+            os.makedirs(DB_DIR, exist_ok=True)
+            way_db = os.path.join(DB_DIR, "customer.db")
+
         conn = sqlite3.connect(way_db)
-        conn.row_factory = sqlite3.Row   # resultados acessíveis por nome de coluna
-        conn.execute("PRAGMA foreign_keys = ON")  # ativa chaves estrangeiras
+        conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys = ON")
         return conn
-    
+
     @staticmethod
     def table(conn: sqlite3.Connection) -> None:
         """Cria as tabelas do banco (se ainda não existirem)."""
@@ -41,7 +47,7 @@ class CustomerArchive:
                     price     REAL     NOT NULL,
                     FOREIGN KEY (customer_id) REFERENCES customer(id)
                 );""")
-    
+
     @staticmethod
     def insert_customer(conn: sqlite3.Connection, name: str, username: str, password: str, address: str) -> None:
         with conn:
@@ -49,4 +55,3 @@ class CustomerArchive:
                 INSERT INTO customer (name, username, password, address)
                 VALUES (?, ?, ?, ?)
             """, (name, username, password, address))
-            
