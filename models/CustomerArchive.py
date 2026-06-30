@@ -15,7 +15,8 @@ class CustomerArchive:
     def connection(way_db: str = None) -> sqlite3.Connection:
         if way_db is None:
             BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-            DB_DIR = os.path.join(BASE_DIR, "data")
+            PARENT_DIR = os.path.dirname(BASE_DIR)
+            DB_DIR = os.path.join(PARENT_DIR, "data")
             os.makedirs(DB_DIR, exist_ok=True)
             way_db = os.path.join(DB_DIR, "customer.db")
 
