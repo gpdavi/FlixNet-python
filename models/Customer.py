@@ -24,3 +24,6 @@ class Customer(User):
     
     def getAddress(self):
         return self.__address
+    
+    def clearPayout(self):
+        self.__payout = 0
