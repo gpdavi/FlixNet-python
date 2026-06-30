@@ -24,4 +24,3 @@ class Customer(User):
     
     def getAddress(self):
         return self.__address
-    

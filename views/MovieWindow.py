@@ -67,5 +67,6 @@ class MovieWindow(ctk.CTkToplevel):
         self.returnToCatalog()
 
     def returnToCatalog(self):
+        self.parent.state("zoomed")
         self.parent.deiconify()
         self.destroy()

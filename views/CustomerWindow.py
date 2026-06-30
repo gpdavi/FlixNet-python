@@ -17,6 +17,8 @@ class CustomerWindow(ctk.CTkToplevel):
         self.customer = customer
         cartSize = len(self.customer.getCart())
 
+        self.state("zoomed")
+
         self.welcomeMessage = ctk.CTkLabel(self, text=f"Seja bem-vindo, {customer.getName().capitalize()}")
         self.welcomeMessage.pack(pady=10)
 
@@ -48,7 +50,7 @@ class CustomerWindow(ctk.CTkToplevel):
             ctk_image = ctk.CTkImage(img, size=(150, 220))
 
             frame = ctk.CTkFrame(self.scroll_frame)
-            frame.grid(row=i // 4, column=i % 4, padx=10, pady=10)
+            frame.grid(row=i // 8, column=i % 8, padx=10, pady=10)
 
             label = ctk.CTkLabel(frame, image=ctk_image, text="")
             label.pack()
