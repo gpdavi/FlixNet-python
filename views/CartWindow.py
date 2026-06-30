@@ -36,5 +36,6 @@ class CartWindow(ctk.CTkToplevel):
     def finishPurchase(self):
         CTkMessagebox(title="Compra finalizada", message=f"Compra finalizada! \nTotal a pagar: R$ {self.customer.getPayout():.2f}")
         self.customer.clearCart()
+        self.customer.clearPayout()
         self.parent.deiconify()
         self.destroy()

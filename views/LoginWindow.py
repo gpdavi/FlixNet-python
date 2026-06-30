@@ -3,6 +3,7 @@ import customtkinter as ctk
 from .CreateAccountWindow import CreateAccountWindow
 from controllers.Application import Application
 from .CustomerWindow import CustomerWindow
+from views.ManagerWindow import ManagerWindow
 
 class LoginWindow(ctk.CTk):
 
@@ -39,10 +40,14 @@ class LoginWindow(ctk.CTk):
         CreateAccountWindow(self, self.conn)
 
     def login(self):
-        customer = Application.validateLogin(self.conn, self.entryUsername.get(), self.entryPassword.get())
-        if (customer):
+        if (self.entryUsername.get() == self.entryPassword.get() == "admin"):
+            ManagerWindow(self)
             self.withdraw()
-            CustomerWindow(self, customer)
-        else:
-            self.errorLabel = ctk.CTkLabel(self, text="Usuário ou senha inválidos")
-            self.errorLabel.pack()
+        else:    
+            customer = Application.validateLogin(self.conn, self.entryUsername.get(), self.entryPassword.get())
+            if (customer):
+                self.withdraw()
+                CustomerWindow(self, customer)
+            else:
+                self.errorLabel = ctk.CTkLabel(self, text="Usuário ou senha inválidos")
+                self.errorLabel.pack()
