@@ -25,8 +25,10 @@ class CartWindow(ctk.CTkToplevel):
         
 
         for movieName in cart:
-            ctk.CTkLabel(cartFrame, text=f"{movieName}................ R$ 10,00").pack(pady=3)
+            ctk.CTkLabel(cartFrame, text=f"{movieName}................ R$ 10,00", font=("Papyrus", 20)).pack(pady=3)
         
+        ctk.CTkLabel(cartFrame, text=f"Endereço de entrega: {self.customer.getAddress()}").pack()
+
         ctk.CTkLabel(cartFrame, text=f"Total a pagar: R$ {self.customer.getPayout()}", font=("Arial", 22)).pack(pady=3)
         ctk.CTkButton(cartFrame, text="Finalizar compra", font=("Arial", 22), command=self.finishPurchase).pack(pady=3)
 
@@ -56,5 +58,6 @@ class CartWindow(ctk.CTkToplevel):
 
 
     def closeAndReturn(self):
+        self.parent.state("zoomed")
         self.parent.deiconify()
         self.destroy()
