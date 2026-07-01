@@ -18,7 +18,7 @@ class CustomerArchive:
             PARENT_DIR = os.path.dirname(BASE_DIR)
             DB_DIR = os.path.join(PARENT_DIR, "data")
             os.makedirs(DB_DIR, exist_ok=True)
-            way_db = os.path.join(DB_DIR, "Manager.db")
+            way_db = os.path.join(DB_DIR, "manager.db")
 
         conn = sqlite3.connect(way_db)
         conn.row_factory = sqlite3.Row

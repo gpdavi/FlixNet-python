@@ -67,5 +67,5 @@ class MovieWindow(ctk.CTkToplevel):
         self.returnToCatalog()
 
     def returnToCatalog(self):
-        self.parent.deiconify()
-        self.destroy()
+            self.parent.deiconify()
+            self.after(50, self.destroy)
